@@ -1,0 +1,34 @@
+# Update version.txt & JS module
+setversion:
+    filename: version.txt 
+    esm: db/project/static/app/js/data/version.js
+
+# Generate config.js
+dump_config:
+    format: esm
+    filename: db/project/static/app/js/data/config.js
+
+# Generate web icons
+icons:
+    source: db/project/static/app/images/icon-1024.png
+    filename: db/project/static/app/images/icon-{size}.png
+    size: web
+
+# Move public files to root
+movefiles:
+    source: htdocs/static/public/*.*
+    dest: htdocs/
+
+# Generate Service Worker
+serviceworker:
+    output: ./htdocs/service-worker.js
+    timeout: 400
+    cache:
+      - /
+      - /manifest.json
+      - /favicon.ico
+      - /icon-*.png
+      - /static/app/js/*.js
+      - /static/app/js/data/*.js
+      - /static/app/css/*.css
+

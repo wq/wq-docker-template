@@ -1,0 +1,25 @@
+{
+    "name": "project",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+        "prettier": "prettier --write ."
+    },
+    "devDependencies": {
+        "@vitejs/plugin-react": "^4.1.0",
+        "@wq/rollup-plugin": "^2.0.0",
+        "eslint": "^8.53.0",
+        "eslint-plugin-react": "^7.33.2",
+        "prettier": "^3.1.0",
+        "vite": "^4.4.9"
+    },
+    "prettier": {
+        "tabWidth": 4
+    },
+    "dependencies": {
+        "@mui/icons-material": "^5.14.18",
+        "react": "^18.2.0"
+    }
+}
