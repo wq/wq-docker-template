@@ -52,6 +52,7 @@ rest.router.add_page(
         section="Contributions",
         order=0,
         map={
+            "mapId": "map",
             "layers": [
                 {
                     "name": "Observations",
