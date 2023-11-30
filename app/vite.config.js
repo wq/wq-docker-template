@@ -11,7 +11,7 @@ function staticDeps() {
                 return {
                     id: prod
                         ? "./data/config.js"
-                        : "http://localhost:5173/config.js",
+                        : "/config.js",
                     external: true,
                 };
             }
@@ -26,7 +26,7 @@ export default defineConfig({
     plugins: [
         react(),
         staticDeps(),
-        wq(prod ? null : { urlBase: "http://localhost:5173/static/app/js" }),
+        wq(prod ? null : { urlBase: "/static/app/js" }),
     ],
     build: {
         sourcemap: true,
