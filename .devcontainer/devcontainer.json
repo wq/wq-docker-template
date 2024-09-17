@@ -10,21 +10,6 @@
             "label": "PostgreSQL"
         }
     },
-    "features": {
-        "ghcr.io/devcontainers/features/common-utils:2": {
-            "installZsh": "true",
-            "username": "vscode",
-            "userUid": "1000",
-            "userGid": "1000",
-            "upgradePackages": "true"
-        },
-        "ghcr.io/devcontainers/features/python:1": "none",  // Included in base image
-        "ghcr.io/devcontainers/features/node:1": "none",  // Included in base image
-        "ghcr.io/devcontainers/features/git:1": {
-            "version": "latest",
-            "ppa": "false"
-        }
-    },
     // Configure tool-specific properties.
     "customizations": {
         // Configure properties specific to VS Code.
