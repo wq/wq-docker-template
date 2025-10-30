@@ -1,4 +1,4 @@
-FROM ghcr.io/wq/base:main
+FROM ghcr.io/wq/base:v3
 COPY . /project
 WORKDIR /project/app
 RUN npm install

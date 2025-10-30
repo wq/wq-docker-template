@@ -1,8 +1,8 @@
-version: '3.8'
+version: "3.8"
 
 services:
   app:
-    image: ghcr.io/wq/dev:latest
+    image: ghcr.io/wq/dev:v3
 
     volumes:
       - ../..:/workspaces:cached
@@ -17,7 +17,7 @@ services:
     # (Adding the "ports" property to this file will not forward from a Codespace.)
 
   db:
-    image: postgis/postgis:16-3.4
+    image: postgis/postgis:17-3.5
     restart: unless-stopped
     volumes:
       - postgres-data:/var/lib/postgresql/data
