@@ -27,8 +27,8 @@ wheel==0.45.1
 whitenoise==6.11.0
 wq==2.1.0
 wq.app==2.1.0
-wq.build==2.1.0
-wq.create==2.1.0
+wq.build==2.1.1
+wq.create==2.1.1
 wq.db==2.1.0
 xlrd==2.0.1
-xlsconv==2.0.0
+xlsconv==2.0.1
