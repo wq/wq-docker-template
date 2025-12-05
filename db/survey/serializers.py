@@ -7,8 +7,9 @@ class ObservationSerializer(ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
-        fields = "__all__"
         model = Observation
+        fields = "__all__"
+        list_exclude = ["geometry"]
         wq_field_config = {
             "notes": {"multiline": True},
         }
