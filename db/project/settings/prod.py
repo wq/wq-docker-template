@@ -18,6 +18,10 @@ CSRF_TRUSTED_ORIGINS = [f"https://{host}" for host in ALLOWED_HOSTS]
 DATABASES = {"default": dj_database_url.config()}
 
 STORAGES = {
+    "default": {
+        # WARNING: Replace with appropriate cloud storage provider!
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },

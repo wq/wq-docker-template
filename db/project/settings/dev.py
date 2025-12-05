@@ -1,6 +1,7 @@
 import sys
 import mimetypes
 from .base import *
+import dj_database_url
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -16,26 +17,17 @@ CSRF_TRUSTED_ORIGINS = ["http://localhost:5173"]
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 DATABASES = {
-    "default": {
-        "ENGINE": "django.contrib.gis.db.backends.postgis",
-        "NAME": "project",
-        "USER": "postgres",
-        "PASSWORD": "",
-        "HOST": "localhost",
-        "PORT": "",
-    }
+    "default": dj_database_url.config(
+        default="postgis://postgres@localhost/project",
+    )
 }
 
 try:
     # Try to create dev database in container
     import psycopg2
 
-    conn = psycopg2.connect(
-        "host={HOST} user={USER}".format(**DATABASES["default"])
-    )
+    conn = psycopg2.connect("host={HOST} user={USER}".format(**DATABASES["default"]))
     conn.set_session(autocommit=True)
-    conn.cursor().execute(
-        "CREATE DATABASE {NAME}".format(**DATABASES["default"])
-    )
+    conn.cursor().execute("CREATE DATABASE {NAME}".format(**DATABASES["default"]))
 except (psycopg2.errors.DuplicateDatabase, psycopg2.OperationalError):
     pass
