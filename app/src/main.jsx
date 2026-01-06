@@ -21,6 +21,7 @@ import {
     Label as Category,
 } from "@mui/icons-material";
 import "maplibre-gl/dist/maplibre-gl.css";
+import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 
 const config = {
     site_title: siteTitle,
@@ -60,6 +61,10 @@ export const routes = [
                     },
                     {
                         path: ":id/edit",
+                        Component: ObservationEdit,
+                    },
+                    {
+                        path: "new",
                         Component: ObservationEdit,
                     },
                 ],

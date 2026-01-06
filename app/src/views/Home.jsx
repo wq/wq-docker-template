@@ -1,5 +1,6 @@
 import { MapProvider, AutoMap } from "@wq/map-gl";
 import { initBounds, basemaps, tiles } from "../config.js";
+import LegendIcon from "../components/LegendIcon.jsx";
 import ObservationPopup from "../views/ObservationPopup.jsx";
 
 const overlays = [
@@ -10,13 +11,13 @@ const overlays = [
             color: "#3388ff",
             active: true,
             legend: {
-                Observation:
-                    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ccircle cx='10' cy='10' r='6' fill='%233388ff'/%3E%3Ccircle cx='10' cy='10' r='3' fill='%23ffffff'/%3E%3C/svg%3E",
+                Observation: "circle-#3388ff",
             },
             popup: "observation-popup",
         },
     ],
     components = {
+        LegendIcon,
         ObservationPopup,
     };
 
