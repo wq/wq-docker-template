@@ -3,7 +3,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { queryClient } from "./api.js";
+import { queryClient, AuthProvider } from "./api";
 
 // Routes
 import Home from "./views/Home";
@@ -11,6 +11,8 @@ import ObservationList from "./views/ObservationList.jsx";
 import ObservationDetail from "./views/ObservationDetail.jsx";
 import ObservationEdit from "./views/ObservationEdit.jsx";
 import Categories from "./views/Categories.jsx";
+import Login from "./views/Login.jsx";
+import Logout from "./views/Logout.jsx";
 
 // Theme
 import Layout from "./components/Layout.jsx";
@@ -77,6 +79,26 @@ export const routes = [
                 },
                 Component: Categories,
             },
+            {
+                path: "/login",
+                navmenu: {
+                    divider: true,
+                    title: "Log In",
+                    icon: "login",
+                    showIf: (auth) => !auth.user,
+                },
+                Component: Login,
+            },
+            {
+                path: "/logout",
+                navmenu: {
+                    divider: true,
+                    title: "Log Out",
+                    icon: "logout",
+                    showIf: (auth) => auth.user,
+                },
+                Component: Logout,
+            },
         ],
     },
 ];
@@ -84,7 +106,9 @@ export const routes = [
 createRoot(document.getElementById("root")).render(
     <StrictMode>
         <QueryClientProvider client={queryClient}>
-            <RouterProvider router={createBrowserRouter(routes)} />
+            <AuthProvider>
+                <RouterProvider router={createBrowserRouter(routes)} />
+            </AuthProvider>
         </QueryClientProvider>
     </StrictMode>
 );

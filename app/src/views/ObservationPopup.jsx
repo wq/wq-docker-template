@@ -6,7 +6,7 @@ import {
     ButtonLink,
     Link,
 } from "@wq/material";
-import { formatDate } from "../api.js";
+import { formatDate } from "../api";
 import { useQuery } from "@tanstack/react-query";
 
 export default function ObservationPopup({ feature }) {

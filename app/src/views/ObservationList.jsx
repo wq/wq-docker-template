@@ -1,13 +1,15 @@
 import { ScrollView, List, ListItem, ListItemLink, Fab } from "@wq/material";
 import { useQuery } from "@tanstack/react-query";
 import PendingList from "../components/PendingList.jsx";
-import { formatDate } from "../api.js";
+import { formatDate, useAuth } from "../api";
 
 export default function ObservationList() {
     const { data, error, isPending, isError } = useQuery({
             queryKey: ["observations"],
         }),
-        observations = data?.list || [];
+        observations = data?.list || [],
+        { user } = useAuth(),
+        canAdd = Boolean(user);
     return (
         <>
             <ScrollView>
@@ -33,7 +35,7 @@ export default function ObservationList() {
                     ))}
                 </List>
             </ScrollView>
-            <Fab to="/observations/new" icon="add" />
+            {canAdd && <Fab to="/observations/new" icon="add" />}
         </>
     );
 }

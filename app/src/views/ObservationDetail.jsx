@@ -12,7 +12,7 @@ import {
 } from "@wq/material";
 import { MapProvider, AutoMap, Geojson } from "@wq/map-gl";
 import { Skeleton, Alert } from "@mui/material";
-import { useDetailQuery, formatDate } from "../api.js";
+import { useDetailQuery, useAuth, formatDate } from "../api";
 import { useParams } from "react-router";
 import { useCurrentPageTitle } from "../components/Breadcrumbs.jsx";
 import ResponsiveTabs from "../components/ResponsiveTabs.jsx";
@@ -22,6 +22,8 @@ import { basemaps, initBounds } from "../config.js";
 
 export default function ObservationDetail() {
     const { id } = useParams(),
+        { user } = useAuth(),
+        canEdit = Boolean(user),
         { data, error, isPending, isError } = useDetailQuery({
             queryKey: ["observations", id],
         }),
@@ -110,7 +112,7 @@ export default function ObservationDetail() {
                         </Table>
                     </View>
                 </ScrollView>
-                <Fab icon="edit" to={`/observations/${id}/edit`} />
+                {canEdit && <Fab icon="edit" to={`/observations/${id}/edit`} />}
             </TabItem>
             <TabItem label="Location" value="location" icon="location">
                 {data?.geometry && (

@@ -3,8 +3,7 @@ import { ScrollView, List, ListItem, IconButton, Popup } from "@wq/material";
 import { AutoForm } from "@wq/form";
 import { useQuery } from "@tanstack/react-query";
 import PendingList from "../components/PendingList.jsx";
-import { useSubmitForm } from "../api.js";
-import { set } from "date-fns";
+import { useSubmitForm, useAuth } from "../api";
 
 const form = [
         {
@@ -28,13 +27,16 @@ export default function Categories() {
     const { data, error, isPending, isError } = useQuery({
             queryKey: ["categories"],
         }),
-        [editCategory, setEditCategory] = useState(null);
-    const categories = data?.list || [];
+        categories = data?.list || [],
+        { user } = useAuth(),
+        canEdit = Boolean(user),
+        [editCategory, setEditCategory] = useState(null),
+        submitForm = useSubmitForm();
+
     return (
         <ScrollView>
             {editCategory && (
                 <Popup
-                    title={`Edit Category: ${editCategory.name}`}
                     open={Boolean(editCategory)}
                     onClose={() => setEditCategory(null)}
                 >
@@ -48,7 +50,12 @@ export default function Categories() {
                                 : "categories"
                         }
                         method={editCategory.id ? "PUT" : "POST"}
-                        postSaveNav={() => setEditCategory(null)}
+                        onSubmit={submitForm}
+                        submitOptions={{
+                            postSaveNav() {
+                                setEditCategory(null);
+                            },
+                        }}
                     />
                 </Popup>
             )}
@@ -68,24 +75,28 @@ export default function Categories() {
                         icon="category"
                         description={category.description}
                         secondaryAction={
-                            <IconButton
-                                icon="edit"
-                                onClick={() => setEditCategory(category)}
-                            />
+                            canEdit && (
+                                <IconButton
+                                    icon="edit"
+                                    onClick={() => setEditCategory(category)}
+                                />
+                            )
                         }
                     >
                         {category.name}
                     </ListItem>
                 ))}
-                <ListItem
-                    button
-                    icon="add"
-                    onClick={() =>
-                        setEditCategory({ name: "", description: "" })
-                    }
-                >
-                    Add Category
-                </ListItem>
+                {canEdit && (
+                    <ListItem
+                        button
+                        icon="add"
+                        onClick={() =>
+                            setEditCategory({ name: "", description: "" })
+                        }
+                    >
+                        Add Category
+                    </ListItem>
+                )}
             </List>
         </ScrollView>
     );

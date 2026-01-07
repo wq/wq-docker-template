@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { ScrollView } from "@wq/material";
-import { AutoForm } from "@wq/form";
+import { AutoForm, DeleteForm } from "@wq/form";
 import { MapProvider } from "@wq/map-gl";
 import { Alert } from "@mui/material";
 import { useNavigate, useParams } from "react-router";
 import { useCurrentPageTitle } from "../components/Breadcrumbs.jsx";
-import { useDetailQuery, formatDate, useSubmitForm, useModel } from "../api.js";
+import { useDetailQuery, formatDate, useSubmitForm, useModel } from "../api";
 
 const form = [
         {
@@ -44,7 +44,7 @@ const form = [
             multiline: true,
         },
     ],
-    components = { useSubmitForm, useModel };
+    components = { useModel };
 
 export default function ObservationEdit() {
     const { id } = useParams(),
@@ -53,7 +53,15 @@ export default function ObservationEdit() {
             enabled: Boolean(id),
         }),
         [, setCurrentPageTitle] = useCurrentPageTitle(),
-        navigate = useNavigate();
+        navigate = useNavigate(),
+        postSaveNav = (result) => {
+            const observationId = result?.id || id || "";
+            navigate(`/observations/${observationId}`);
+        },
+        postDeleteNav = () => {
+            navigate("/observations/");
+        },
+        submitForm = useSubmitForm();
 
     useEffect(() => {
         if (data) {
@@ -67,18 +75,24 @@ export default function ObservationEdit() {
                 <Alert severity="warning">Loading observation...</Alert>
             )}
             {isError && <Alert severity="error">{error.message}</Alert>}
+            {id && (
+                <DeleteForm
+                    action={`observations/${id}`}
+                    onSubmit={submitForm}
+                    submitOptions={{ postSaveNav: postDeleteNav }}
+                />
+            )}
             <MapProvider>
                 <AutoForm
+                    form={form}
                     wq={{ components }}
                     action={id ? `observations/${id}` : "observations"}
-                    cancel={`/observations/${id || ""}`}
-                    postSaveNav={({ result }) =>
-                        navigate(`/observations/${result.id}`)
-                    }
                     method={id ? "PUT" : "POST"}
+                    onSubmit={submitForm}
+                    submitOptions={{ postSaveNav }}
                     disabled={isPending || isError}
                     data={data}
-                    form={form}
+                    cancel={`/observations/${id || ""}`}
                 />
             </MapProvider>
         </ScrollView>

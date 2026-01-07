@@ -26,9 +26,11 @@ export default defineConfig({
     },
     server: {
         proxy: {
-            "^/.+.json$": "http://localhost:8000",
+            "^/.+.json": "http://localhost:8000",
             "^/config.js$": "http://localhost:8000",
             "^/admin/.*$": "http://localhost:8000",
+            "^/_allauth/.*$": "http://localhost:8000",
+            "^/account/.*$": "http://localhost:8000",
             "^/static/.*$": "http://localhost:8000",
             "^/media/.*$": "http://localhost:8000",
             "^/tiles/.*$": "http://localhost:8000",

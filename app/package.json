@@ -14,7 +14,7 @@
     "dependencies": {
         "@tanstack/react-query": "^5.90.11",
         "@wq/form": "^3.0.0-alpha.0",
-        "@wq/form-web": "^3.0.0-alpha.0",
+        "@wq/form-web": "^3.0.0-alpha.1",
         "@wq/map-gl": "^3.0.0-alpha.1",
         "@wq/map-gl-web": "^3.0.0-alpha.1",
         "@wq/material": "^3.0.0-alpha.0",
