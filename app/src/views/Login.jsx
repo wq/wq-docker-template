@@ -1,6 +1,6 @@
 import {
-    AutoForm,
     Form,
+    FormContainer,
     FormError,
     Input,
     CancelButton,
@@ -18,7 +18,7 @@ export default function Login() {
         };
     return (
         <ScrollView>
-            <AutoForm>
+            <FormContainer>
                 <Form
                     onSubmit={login}
                     submitOptions={{ postSaveNav }}
@@ -32,7 +32,7 @@ export default function Login() {
                         <SubmitButton>Log In</SubmitButton>
                     </HorizontalView>
                 </Form>
-            </AutoForm>
+            </FormContainer>
         </ScrollView>
     );
 }
